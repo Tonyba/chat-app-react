@@ -6,6 +6,8 @@ import { LoginPage } from '../pages/LoginPage';
 import { RegisterPage } from '../pages/RegisterPage';
 import { ConversationChannelPage } from '../pages/ConversationChannelPage';
 
+import { AuthenticatedRoute } from '../components/AuthenticatedRoute';
+
 
 export const AppRouter = () => {
   return (
@@ -15,7 +17,12 @@ export const AppRouter = () => {
           <Route path="/" element={<RegisterPage />}></Route>
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/register" element={<RegisterPage />}></Route>
-          <Route path="/conversations" element={<ConversationPage />}>
+          <Route path="/conversations" element={
+            <AuthenticatedRoute>
+              <ConversationPage />
+            </AuthenticatedRoute>
+          
+          }>
             <Route  path=':id' element={<ConversationChannelPage /> }></Route>
           </Route>
         </Routes>
@@ -24,7 +31,3 @@ export const AppRouter = () => {
   );
 };
 
-
-function RequireAuth() {
-
-}
