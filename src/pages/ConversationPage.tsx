@@ -4,14 +4,14 @@ import { ConversationSidebar } from '../components/conversations/ConversationSid
 import { Page } from '../utils/styles';
 import { ConverstationPanel } from '../components/conversations/ConverstationPanel';
 
-import mockConverstations from '../__mocks__/converstation';
+// import mockConverstations from '../__mocks__/converstation';
 
 export const ConversationPage = () => {
   const { id } = useParams();
 
   return (
     <Page>
-      <ConversationSidebar conversations={mockConverstations}  />
+      <ConversationSidebar conversations={[]}  />
       { !id &&  <ConverstationPanel /> }
       <Outlet />
     </Page>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ConversationPage } from '../pages/ConversationPage';
 import { LoginPage } from '../pages/LoginPage';
@@ -7,11 +7,17 @@ import { RegisterPage } from '../pages/RegisterPage';
 import { ConversationChannelPage } from '../pages/ConversationChannelPage';
 
 import { AuthenticatedRoute } from '../components/AuthenticatedRoute';
+import { AuthContext } from '../utils/context/AuthContext';
+import { User } from '../utils/types';
 
 
 export const AppRouter = () => {
+
+  const [user, setUser] = useState<User>()
+
   return (
-    <Router>
+    <AuthContext.Provider value={{user, updateAuthUser: setUser}} >
+      <Router>
      
         <Routes>
           <Route path="/" element={<RegisterPage />}></Route>
@@ -26,8 +32,10 @@ export const AppRouter = () => {
             <Route  path=':id' element={<ConversationChannelPage /> }></Route>
           </Route>
         </Routes>
-    
-    </Router>
+ 
+      </Router>
+    </AuthContext.Provider>
+  
   );
 };
 
