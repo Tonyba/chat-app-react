@@ -10,7 +10,6 @@ export const useAuth = () => {
   useEffect(() => {
     getAuthUser()
       .then(({ data }) => {
-        console.log(data);
         updateAuthUser(data);
         setTimeout(() => setLoading(false), 1000);
       })

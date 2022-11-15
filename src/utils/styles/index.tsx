@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PageProps, InputContainerProps } from './styleTypes';
+import { PageProps, InputContainerProps, MessageItemContentProps } from './styleTypes';
 
 
 const SIDEBAR_WIDTH = 400;
@@ -103,6 +103,7 @@ export const ConversationChannelPageStyle = styled.div`
   margin-left: ${SIDEBAR_WIDTH}px;
 `;
 
+
 export const ConversationPannelStyle = styled.div`
   height: 100%;
   margin-left: ${SIDEBAR_WIDTH}px;
@@ -110,7 +111,7 @@ export const ConversationPannelStyle = styled.div`
 
 
 export const ConversationSidebarContainer = styled.div`
-
+    margin-top: 100px;
   
 `;
 
@@ -178,4 +179,108 @@ export const TextField = styled.textarea`
     &::-webkit-scrollbar {
       display: none;
     }
+`;
+
+export const MessagePanelStyle = styled.div`
+  background: inherit;
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+`;
+
+export const MessagePanelBody = styled.div`
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    box-sizing: border-box;
+`;
+
+export const MessageContainerStyle = styled.div`
+  height: 100%;
+  padding: 32px;
+  box-sizing: border-box;
+  padding: 10px 0;
+  flex-direction: column-reverse;
+  display: flex;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+export const MessageInputContainer = styled.div`
+  box-sizing: border-box;
+  background-color: #101010;
+  border-radius: 5px;
+  width: 100%;
+  padding: 24px 32px;
+`;
+
+export const MessageInput = styled.input`
+  background-color: inherit;
+  outline: none;
+  border: none;
+  color: #fff;
+  font-family: 'Inter';
+  box-sizing: border-box;
+  font-size: 18px;
+  width: 100%;
+  padding: 0;
+  margin: 4px 0;
+  resize: none;
+`;
+
+export const MessageItemContainer = styled.div`
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding: 10px 0;
+
+`;
+
+export const MessageItemAvatar = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ee4343;
+`;
+
+export const MessageItemDetails = styled.div`
+
+`;
+
+export const MessageItemHeader = styled.div`
+display: flex;
+gap: 12px;
+ .time {
+  color: #6d6d6d;
+  font-size: 14px;
+  font-weight: bold;
+ }
+
+ .author {
+  font-weight: 600;
+  font-size: 16px
+ }
+`;
+
+export const MessageItemContent = styled.div<MessageItemContentProps>`
+  padding: ${({padding}) => padding}
+`;
+
+export const MessagePanelHeaderStyle = styled.header`
+  background-color: #151515;
+  border-bottom: 1px solid #5454543d;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #151515;
+  padding: 0px 32px;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%
 `;
