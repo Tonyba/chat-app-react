@@ -53,6 +53,7 @@ export const ConversationSidebar: FC<Props> = ({ conversations }) => {
         </ConversationSidebarItem>
       )) }
     </ConversationSidebarContainer>
+        
   </ConversationSidebarStyle>;
   </>
 };

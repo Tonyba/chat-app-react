@@ -190,10 +190,11 @@ export const MessagePanelStyle = styled.div`
 
 export const MessagePanelBody = styled.div`
     height: 100%;
-    display: flex;
-    flex-direction: column;
     padding: 32px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding-top: 100px;
 `;
 
 export const MessageContainerStyle = styled.div`
@@ -247,11 +248,12 @@ export const MessageItemAvatar = styled.div`
 `;
 
 export const MessageItemDetails = styled.div`
-
+  flex: 1;
 `;
 
 export const MessageItemHeader = styled.div`
 display: flex;
+align-items: center;
 gap: 12px;
  .time {
   color: #6d6d6d;
@@ -266,12 +268,13 @@ gap: 12px;
 `;
 
 export const MessageItemContent = styled.div<MessageItemContentProps>`
-  padding: ${({padding}) => padding}
+  padding: ${({padding}) => padding};
 `;
 
 export const MessagePanelHeaderStyle = styled.header`
   background-color: #151515;
   border-bottom: 1px solid #5454543d;
+  border-left: 1px solid #5454543d;
   height: 100px;
   display: flex;
   justify-content: space-between;
@@ -282,5 +285,5 @@ export const MessagePanelHeaderStyle = styled.header`
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%
+  width: 100%;
 `;

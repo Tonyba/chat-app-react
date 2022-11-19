@@ -30,3 +30,11 @@ export type MessageType = {
   createdAt: string;
   author: User;
 };
+
+export type MessageEventPayload = {
+  id: number;
+  createdAt: string;
+  conversation: Conversation;
+  author: User;
+  content: string;
+};
