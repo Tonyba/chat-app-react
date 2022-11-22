@@ -12,7 +12,10 @@ import { User } from '../utils/types';
 import { SocketContext, socket } from '../utils/context/SocketContext';
 import { Socket } from 'socket.io-client';
 import { Provider as ReduxProvider } from 'react-redux'
-import { store } from '../store/store';
+import { store } from '../store/index';
+import { enableMapSet } from 'immer'
+
+enableMapSet();
 
 type Props = {
   user?: User;

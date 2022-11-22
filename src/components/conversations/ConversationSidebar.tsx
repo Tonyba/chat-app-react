@@ -8,16 +8,20 @@ import { CreateConversationModal } from '../modals/CreateConversationModal';
 import { Conversation } from '../../utils/types';
 import { AuthContext } from '../../utils/context/AuthContext';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/index';
+
 type Props = {
   conversations: Conversation[];
 }
 
-
-export const ConversationSidebar: FC<Props> = ({ conversations }) => {
+export const ConversationSidebar: FC<Props> = () => {
 
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-  const { user } = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
+  const conversations = useSelector((state: RootState) => state.conversation.conversations);
+  const dispatch = useDispatch();
 
   const getDisplayUser = (conversation: Conversation) => {
     return conversation.creator.id === user?.id ? conversation.recipient : conversation.creator ;
@@ -34,7 +38,7 @@ export const ConversationSidebar: FC<Props> = ({ conversations }) => {
       
     </ConversationSidebarHeader>
     <ConversationSidebarContainer>
-      { conversations.map((conversation) => (
+      { Array.from(conversations, ([_, conversation]) => conversation).map((conversation) => (
         <ConversationSidebarItem key={conversation.id} onClick={ () => navigate(`/conversations/${conversation.id}`) } > 
           <div className={styles.conversationAvatar}></div>
        

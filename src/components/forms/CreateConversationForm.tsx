@@ -2,8 +2,13 @@ import React from 'react'
 import { InputField, InputContainer, InputLabel, TextField, Button } from '../../utils/styles/index';
 
 import styles from './index.module.scss';
+import { useDispatch } from 'react-redux';
+import { addConversation } from '../../store/conversationSlide';
 
 export const CreateConversationForm = () => {
+
+  const dispatch = useDispatch();
+
   return (
     <form className={styles.createConversationForm} >
         <section>
@@ -19,7 +24,9 @@ export const CreateConversationForm = () => {
             </InputContainer>
         </section>    
 
-        <Button onClick={(e) => e.preventDefault()} >Create Conversation</Button>
+        <Button onClick={(e) =>{ 
+            e.preventDefault();        
+        }} >Create Conversation</Button>
         
     </form>
   )

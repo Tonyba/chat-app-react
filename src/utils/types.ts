@@ -17,11 +17,16 @@ export type User = {
   lastName: string;
 };
 
+export type CreateConversationParams = {
+  recipient: string;
+};
+
 export type Conversation = {
   id: number;
   creator: User;
   recipient: User;
-  // lastMessage: Message,
+  createdAt: string;
+  message: MessageType[];
 };
 
 export type MessageType = {

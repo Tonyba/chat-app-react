@@ -2,10 +2,13 @@ import {useContext, useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom';
 import { ConversationChannelPageStyle } from '../utils/styles/index';
 import { AuthContext } from '../utils/context/AuthContext';
-import { getConversationMessages } from '../utils/api';
 import { MessageType, MessageEventPayload } from '../utils/types';
 import { MessagePanel } from '../components/messages/MessagePanel';
 import { SocketContext } from '../utils/context/SocketContext';
+import { fetchConversationsThunk } from '../store/conversationSlide';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../store/index';
+import { getConversationMessages } from '../utils/api';
 
 export const ConversationChannelPage = () => {
 
@@ -13,6 +16,7 @@ export const ConversationChannelPage = () => {
   const socket = useContext(SocketContext);
   const [messages, setMessages] = useState<MessageType[]>([]);
   const { id } = useParams();
+  const dispatch = useDispatch<AppDispatch>();
 
 
   useEffect(() => {
@@ -22,6 +26,7 @@ export const ConversationChannelPage = () => {
       })
       .catch((err) => console.log(err))
   }, [id]);
+
 
   useEffect(() => {
     socket.on('connected', () => console.log('Connected'));
