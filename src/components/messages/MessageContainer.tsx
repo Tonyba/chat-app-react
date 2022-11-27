@@ -9,10 +9,6 @@ import { RootState } from '../../store/index';
 import { useParams } from "react-router-dom";
 
 
-type Props = {
-  messages: MessageType[];
-}
-
 type FormattedMessageProps = {
   user?: User;
   message: MessageType;
@@ -42,7 +38,7 @@ export const  FormattedMessage: FC<FormattedMessageProps> = ({ user, message}) =
 }
 
 
-export const MessageContainer: FC<Props> = ({ messages }) => {
+export const MessageContainer = () => {
 
   const { user } = useContext(AuthContext);
   const { id } = useParams();

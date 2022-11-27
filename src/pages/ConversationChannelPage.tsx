@@ -6,7 +6,7 @@ import { MessagePanel } from '../components/messages/MessagePanel';
 import { SocketContext } from '../utils/context/SocketContext';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../store/index';
-import { fetchMessagesThunk } from '../store/messageSlice';
+import { addMessage, fetchMessagesThunk } from '../store/messageSlice';
 
 export const ConversationChannelPage = () => {
 
@@ -28,7 +28,7 @@ export const ConversationChannelPage = () => {
     socket.on('onMessage', (payload: MessageEventPayload) => {
       console.log('Message Received');
       const { conversation, ...message } = payload;
-      setMessages((prev) => [message, ...prev]);
+      dispatch(addMessage(payload));
     });
 
     return () => {
@@ -40,7 +40,7 @@ export const ConversationChannelPage = () => {
 
   return (
     <ConversationChannelPageStyle>
-      <MessagePanel messages={messages} ></MessagePanel>
+      <MessagePanel ></MessagePanel>
     </ConversationChannelPageStyle>
   )
 }
