@@ -50,7 +50,7 @@ export const ConversationSidebar: FC<Props> = () => {
             </span>
 
             <span className={styles.conversationMessage}>
-              hello
+              {conversation.lastMessageSent?.content}
             </span>
             
           </div> 

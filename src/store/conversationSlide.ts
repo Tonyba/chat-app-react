@@ -25,6 +25,15 @@ export const conversationSlice = createSlice({
       console.log('add conversation');
       // state.conversations.push(action.payload);
     },
+    updateConversation: (state, action: PayloadAction<Conversation>) => {
+      console.log('Inside updateConversation');
+      console.log(action.payload);
+      const conversation = action.payload;
+      const index = state.conversations.findIndex((c) => c.id === conversation.id);
+
+      state.conversations.splice(index, 1);
+      state.conversations.unshift(conversation);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -39,6 +48,6 @@ export const conversationSlice = createSlice({
   },
 });
 
-export const { addConversation } = conversationSlice.actions;
+export const { addConversation, updateConversation } = conversationSlice.actions;
 
 export default conversationSlice.reducer;

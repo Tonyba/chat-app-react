@@ -7,11 +7,11 @@ import { SocketContext } from '../utils/context/SocketContext';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../store/index';
 import { addMessage, fetchMessagesThunk } from '../store/messageSlice';
+import { updateConversation } from '../store/conversationSlide';
 
 export const ConversationChannelPage = () => {
 
   const socket = useContext(SocketContext);
-  const [messages, setMessages] = useState<MessageType[]>([]);
   const { id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
   
@@ -27,8 +27,10 @@ export const ConversationChannelPage = () => {
     socket.on('connected', () => console.log('Connected'));
     socket.on('onMessage', (payload: MessageEventPayload) => {
       console.log('Message Received');
-      const { conversation, ...message } = payload;
+      const { conversation } = payload;
+
       dispatch(addMessage(payload));
+      dispatch(updateConversation(conversation))
     });
 
     return () => {

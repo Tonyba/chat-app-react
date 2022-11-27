@@ -26,7 +26,7 @@ export type Conversation = {
   creator: User;
   recipient: User;
   createdAt: string;
-  messages: MessageType[];
+  lastMessageSent: MessageType;
 };
 
 export type MessageType = {
@@ -34,6 +34,7 @@ export type MessageType = {
   content: string;
   createdAt: string;
   author: User;
+  conversation: Conversation;
 };
 
 export type FetchMessagePayload = {
@@ -42,11 +43,8 @@ export type FetchMessagePayload = {
 };
 
 export type MessageEventPayload = {
-  id: number;
-  createdAt: string;
+  message: MessageType;
   conversation: Conversation;
-  author: User;
-  content: string;
 };
 
 export type CreateMessageParams = {
