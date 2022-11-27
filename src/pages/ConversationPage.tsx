@@ -8,16 +8,20 @@ import { ConverstationPanel } from '../components/conversations/ConverstationPan
 import { getConversations } from '../utils/api';
 import { Conversation } from '../utils/types';
 import { AppDispatch } from '../store';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchConversationsThunk } from '../store/conversationSlide';
+import { RootState } from '../store/index';
 
 export const ConversationPage = () => {
   const { id } = useParams();
   const [ conversations, setConversations ] = useState<Conversation[]>([])
   const dispatch = useDispatch<AppDispatch>();
+  const conversationsState = useSelector(
+    (state: RootState) => state.conversation.conversations
+  )
 
   useEffect(() => {
-    
+    console.log('fetching conversations in conversation page')
     dispatch(fetchConversationsThunk())
     
   }, [])

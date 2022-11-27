@@ -1,31 +1,26 @@
 import {useContext, useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom';
 import { ConversationChannelPageStyle } from '../utils/styles/index';
-import { AuthContext } from '../utils/context/AuthContext';
 import { MessageType, MessageEventPayload } from '../utils/types';
 import { MessagePanel } from '../components/messages/MessagePanel';
 import { SocketContext } from '../utils/context/SocketContext';
-import { fetchConversationsThunk } from '../store/conversationSlide';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../store/index';
-import { getConversationMessages } from '../utils/api';
+import { fetchMessagesThunk } from '../store/messageSlice';
 
 export const ConversationChannelPage = () => {
 
-  const { user } = useContext(AuthContext)
   const socket = useContext(SocketContext);
   const [messages, setMessages] = useState<MessageType[]>([]);
   const { id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
-
+  
 
   useEffect(() => {
-    id && getConversationMessages(parseInt(id))
-      .then(({data}) => {
-        setMessages(data);
-      })
-      .catch((err) => console.log(err))
-  }, [id]);
+    const conversationId = parseInt(id!);
+    dispatch(fetchMessagesThunk(conversationId));
+  }, [id])
+  
 
 
   useEffect(() => {

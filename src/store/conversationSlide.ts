@@ -1,14 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { Conversation, CreateConversationParams } from '../utils/types';
+import { Conversation } from '../utils/types';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { getConversations } from '../utils/api';
 
 export interface ConversationsState {
-  conversations: Map<number, Conversation>;
+  conversations: Conversation[];
+  loading: boolean;
 }
 
 const initialState: ConversationsState = {
-  conversations: new Map(),
+  conversations: [],
+  loading: false,
 };
 
 export const fetchConversationsThunk = createAsyncThunk('conversations/fetch', async () => {
@@ -25,9 +27,15 @@ export const conversationSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchConversationsThunk.fulfilled, (state, action) => {
-      action.payload.data.forEach((conversation) => state.conversations.set(conversation.id, conversation));
-    });
+    builder
+      .addCase(fetchConversationsThunk.fulfilled, (state, action) => {
+        state.conversations = action.payload.data;
+        state.loading = false;
+      })
+
+      .addCase(fetchConversationsThunk.pending, (state, action) => {
+        state.loading = true;
+      });
   },
 });
 
