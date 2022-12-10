@@ -18,7 +18,8 @@ export type User = {
 };
 
 export type CreateConversationParams = {
-  recipient: string;
+  email: string;
+  message: string;
 };
 
 export type Conversation = {

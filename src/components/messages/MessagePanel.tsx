@@ -8,7 +8,11 @@ import { useParams } from "react-router-dom";
 import { postNewMessage } from '../../utils/api';
 
 
-export const MessagePanel = () => {
+type Props = {
+    sendTypingStatus: () => void
+}
+
+export const MessagePanel: FC<Props> = ({ sendTypingStatus }) => {
 
     const [content, setContent] = useState('');
     const { id } = useParams();
@@ -30,7 +34,12 @@ export const MessagePanel = () => {
             <MessagePanelHeader/>
             <MessagePanelBody>
                 <MessageContainer />
-                <MessageInputField content={content} setContent={setContent} sendContent={sendMessage} />
+                <MessageInputField 
+                content={content} 
+                setContent={setContent} 
+                sendContent={sendMessage}
+                sendTypingStatus={sendTypingStatus}
+                 />
             </MessagePanelBody>
         </MessagePanelStyle>
     </>
