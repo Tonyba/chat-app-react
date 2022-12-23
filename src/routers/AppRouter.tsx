@@ -1,4 +1,4 @@
-import React, { useState, FC, PropsWithChildren, Dispatch, SetStateAction} from 'react';
+import React, { useState, PropsWithChildren} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ConversationPage } from '../pages/ConversationPage';
 import { LoginPage } from '../pages/LoginPage';
@@ -39,7 +39,6 @@ export const AppRouter = () => {
          <AuthenticatedRoute>
            <ConversationPage />
          </AuthenticatedRoute>
-       
        }>
          <Route  path=':id' element={<ConversationChannelPage /> }></Route>
        </Route>

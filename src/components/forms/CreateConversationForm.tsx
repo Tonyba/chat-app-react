@@ -8,6 +8,7 @@ import { CreateConversationParams } from '../../utils/types';
 import { AppDispatch } from '../../store';
 import { Dispatch, FC }  from 'react'
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>
@@ -16,15 +17,18 @@ type Props = {
 export const CreateConversationForm: FC<Props> = ({ setShowModal }) => {
 
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const { register, handleSubmit, formState: { errors } } = useForm<CreateConversationParams>({});
 
   const onSubmit = (data: CreateConversationParams) => {
         console.log(data);
         dispatch(createConversationThunk(data))
-        .then((data) => {
-            console.log(data);
+        .unwrap()
+        .then(({data}) => {
+            console.log(data.id);
             setShowModal(false);
+            navigate(`/conversations/${data.id}`)
             
         })
         .catch((err) => console.log(err));
