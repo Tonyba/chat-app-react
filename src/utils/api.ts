@@ -7,6 +7,7 @@ import {
   CreateMessageParams,
   FetchMessagePayload,
   CreateConversationParams,
+  DeleteMessageParams,
 } from "./types";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -39,3 +40,12 @@ export const postNewMessage = (data: CreateMessageParams) =>
 
 export const postNewConversation = (data: CreateConversationParams) =>
   axios.post<Conversation>(`${API_URL}/conversations`, data, config);
+
+export const deleteMessage = ({
+  conversationId,
+  messageId,
+}: DeleteMessageParams) =>
+  axios.delete(
+    `${API_URL}/conversations/${conversationId}/messages/${messageId}`,
+    config
+  );

@@ -1,6 +1,10 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getConversationMessages } from '../utils/api';
-import { ConversationMessage, MessageEventPayload } from '../utils/types';
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { deleteMessage, getConversationMessages } from "../utils/api";
+import {
+  ConversationMessage,
+  DeleteMessageParams,
+  MessageEventPayload,
+} from "../utils/types";
 
 export interface MessagesState {
   messages: ConversationMessage[];
@@ -12,36 +16,51 @@ const initialState: MessagesState = {
   loading: false,
 };
 
-export const fetchMessagesThunk = createAsyncThunk('messages/fetch', async (id: number) => {
-  return getConversationMessages(id);
-});
+export const fetchMessagesThunk = createAsyncThunk(
+  "messages/fetch",
+  async (id: number) => {
+    return getConversationMessages(id);
+  }
+);
+
+export const deleteMessageshunk = createAsyncThunk(
+  "messages/delete",
+  async (params: DeleteMessageParams) => {
+    return deleteMessage(params);
+  }
+);
 
 export const messagesSlice = createSlice({
-  name: 'messages',
+  name: "messages",
   initialState,
   reducers: {
     addMessage: (state, action: PayloadAction<MessageEventPayload>) => {
       console.log(state);
       console.log(action);
       const { conversation, message } = action.payload;
-      const converstationMessage = state.messages.find((cm) => cm.id === conversation.id);
+      const converstationMessage = state.messages.find(
+        (cm) => cm.id === conversation.id
+      );
 
       converstationMessage?.messages.unshift(message);
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchMessagesThunk.fulfilled, (state, action) => {
-      const { id, messages } = action.payload.data;
-      const index = state.messages.findIndex((cm) => cm.id === id);
-      const exists = state.messages.find((cm) => cm.id === id);
-      if (exists) {
-        console.log('exists');
-        state.messages[index] = action.payload.data;
-      } else {
-        state.messages.push(action.payload.data);
-      }
-      state.loading = false;
-    });
+    builder
+
+      .addCase(fetchMessagesThunk.fulfilled, (state, action) => {
+        const { id, messages } = action.payload.data;
+        const index = state.messages.findIndex((cm) => cm.id === id);
+        const exists = state.messages.find((cm) => cm.id === id);
+        if (exists) {
+          console.log("exists");
+          state.messages[index] = action.payload.data;
+        } else {
+          state.messages.push(action.payload.data);
+        }
+        state.loading = false;
+      })
+      .addCase(deleteMessageshunk.fulfilled, (state, action) => {});
   },
 });
 

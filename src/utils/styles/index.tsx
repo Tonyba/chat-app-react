@@ -1,14 +1,15 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 import {
+  ContextMenuProps,
   InputContainerProps,
   MessageItemContentProps,
   PageProps,
-} from './styleTypes';
+} from "./styleTypes";
 
 export const SIDEBAR_WIDTH = 400;
 
 export const InputField = styled.input`
-  font-family: 'Inter';
+  font-family: "Inter";
   outline: none;
   border: none;
   background-color: inherit;
@@ -21,7 +22,7 @@ export const InputField = styled.input`
 `;
 
 export const InputContainer = styled.div<InputContainerProps>`
-  background-color: ${(prop) => prop.backgroundColor || '#131313'};
+  background-color: ${(prop) => prop.backgroundColor || "#131313"};
   padding: 12px 16px;
   border-radius: 10px;
   width: 100%;
@@ -39,7 +40,7 @@ export const Button = styled.button`
   width: 100%;
   outline: none;
   border: none;
-  font-family: 'Inter';
+  font-family: "Inter";
   font-size: 16px;
   background-color: #2b09ff;
   color: #fff;
@@ -157,7 +158,7 @@ export const ModalContentBodyStyle = styled.div`
 `;
 
 export const TextField = styled.textarea`
-  font-family: 'Inter';
+  font-family: "Inter";
   outline: none;
   border: none;
   background-color: inherit;
@@ -228,7 +229,7 @@ export const MessageInput = styled.input`
   outline: none;
   border: none;
   color: #454545;
-  font-family: 'Inter';
+  font-family: "Inter";
   box-sizing: border-box;
   font-size: 18px;
   width: 100%;
@@ -273,4 +274,32 @@ export const MessageItemHeader = styled.div`
 
 export const MessageItemContent = styled.div<MessageItemContentProps>`
   padding: ${({ padding }) => padding};
+`;
+
+export const ContextMenu = styled.div<ContextMenuProps>`
+  border-radius: 4px;
+  box-sizing: border-box;
+  position: fixed;
+  width: 200px;
+  background-color: #252525;
+  ${(props) => css`
+    top: ${props.top}px;
+    left: ${props.left}px;
+  `}
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+  }
+
+  ul li {
+    padding: 14px 16px;
+    border-radius: 8px;
+  }
+
+  ul li:hover {
+    cursor: pointer;
+    background-color: #1f1f1f;
+  }
 `;

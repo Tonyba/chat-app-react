@@ -10,6 +10,11 @@ export type loginUserParams = {
   password: string;
 };
 
+export type DeleteMessageParams = {
+  conversationId: number;
+  messageId: number;
+};
+
 export type User = {
   id: number;
   email: string;
