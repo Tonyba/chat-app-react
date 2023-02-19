@@ -1,8 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { deleteMessage, getConversationMessages } from "../utils/api";
+import {
+  deleteMessage as deleteMessageAPI,
+  getConversationMessages,
+} from "../utils/api";
 import {
   ConversationMessage,
   DeleteMessageParams,
+  DeleteMessageResponse,
   MessageEventPayload,
 } from "../utils/types";
 
@@ -26,7 +30,7 @@ export const fetchMessagesThunk = createAsyncThunk(
 export const deleteMessageshunk = createAsyncThunk(
   "messages/delete",
   async (params: DeleteMessageParams) => {
-    return deleteMessage(params);
+    return deleteMessageAPI(params);
   }
 );
 
@@ -44,6 +48,20 @@ export const messagesSlice = createSlice({
 
       converstationMessage?.messages.unshift(message);
     },
+    deleteMessage: (state, action: PayloadAction<DeleteMessageResponse>) => {
+      const { payload } = action;
+      const converstationMessages = state.messages.find(
+        (cm) => cm.id === payload.conversationId
+      );
+
+      if (!converstationMessages) return;
+
+      const messageIndex = converstationMessages?.messages.findIndex(
+        (m) => m.id === payload.messageId
+      );
+
+      converstationMessages?.messages.splice(messageIndex, 1);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -60,10 +78,23 @@ export const messagesSlice = createSlice({
         }
         state.loading = false;
       })
-      .addCase(deleteMessageshunk.fulfilled, (state, action) => {});
+      .addCase(deleteMessageshunk.fulfilled, (state, action) => {
+        const { data } = action.payload;
+        const converstationMessages = state.messages.find(
+          (cm) => cm.id === data.conversationId
+        );
+
+        if (!converstationMessages) return;
+
+        const messageIndex = converstationMessages?.messages.findIndex(
+          (m) => m.id === data.messageId
+        );
+
+        converstationMessages?.messages.splice(messageIndex, 1);
+      });
   },
 });
 
-export const { addMessage } = messagesSlice.actions;
+export const { addMessage, deleteMessage } = messagesSlice.actions;
 
 export default messagesSlice.reducer;

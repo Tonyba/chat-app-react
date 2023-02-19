@@ -8,6 +8,7 @@ import {
   FetchMessagePayload,
   CreateConversationParams,
   DeleteMessageParams,
+  DeleteMessageResponse,
 } from "./types";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -45,7 +46,7 @@ export const deleteMessage = ({
   conversationId,
   messageId,
 }: DeleteMessageParams) =>
-  axios.delete(
+  axios.delete<DeleteMessageResponse>(
     `${API_URL}/conversations/${conversationId}/messages/${messageId}`,
     config
   );
