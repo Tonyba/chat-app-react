@@ -4,6 +4,7 @@ import {
   InputContainerProps,
   MessageItemContentProps,
   PageProps,
+  MessagePanelBodyProps,
 } from "./styleTypes";
 
 export const SIDEBAR_WIDTH = 400;
@@ -195,12 +196,12 @@ export const MessagePanelStyle = styled.div`
   position: relative;
 `;
 
-export const MessagePanelBody = styled.div`
+export const MessagePanelBody = styled.div<MessagePanelBodyProps>`
   height: calc(100%);
   display: flex;
   flex-direction: column;
-  padding: 32px;
-  padding-top: 0;
+  padding: 0 32px 10px 32px;
+
   box-sizing: border-box;
 `;
 
@@ -302,4 +303,14 @@ export const ContextMenu = styled.div<ContextMenuProps>`
     cursor: pointer;
     background-color: #1f1f1f;
   }
+`;
+
+export const MessageTypingStatus = styled.div`
+  width: 100%;
+  margin-top: 5px;
+  font-size: 15px;
+  font-style: italic;
+  color: #a2a2a2;
+  min-height: 15px;
+  max-height: 15px;
 `;
